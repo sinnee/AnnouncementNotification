@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,12 +34,12 @@ namespace pjPractice
 
         string row;
         string[] value = new string[7]; //number, category, title, date, seeing, webAddress, Isscrapped
-        string[] AllString;
+        string[] AllString, ScrapString; //test.txt, scrap.txt
 
-        int stringIndex = 1;
+        int stringIndex = 1, scarpIndex = 1; //가장 마지막 == 제일 처음 공지사항을 가리킴
 
-        int pageNumber = 1;
-        int tempPage = 0;
+        int pageNumber = 1; //페이지 수 이동 체크
+        int tempPage = 0; 
 
         public MainWindow()
         {
@@ -64,8 +64,6 @@ namespace pjPractice
             _opt = new ChromeOptions();
             _opt.AddArgument("disable-gpu");
 
-            //SearchWeb();
-
             setStringvalue();
             setBut(stringIndex - 1);
         }
@@ -73,7 +71,7 @@ namespace pjPractice
         private void SearchWeb(object sender, RoutedEventArgs e)
         {
             StreamWriter sw = File.AppendText("test.txt");
-            int index = 3;
+            int index = 3; //3페이지 내에서만 검색, 숫자 바꾸면 됨
 
             _opt.AddArgument("headless");
 
@@ -122,6 +120,9 @@ namespace pjPractice
                 index--;
             }
             sw.Close();
+
+            setStringvalue();
+            setBut(stringIndex - 1);
         }
 
         private void setBut(int n)
@@ -168,6 +169,26 @@ namespace pjPractice
                 return;
             pageNumber = tempPage;
             setBut(pageNumber);
+        }
+
+        private void Scarp_Click(object sender, RoutedEventArgs e) //추가 필요, 스크랩 창 따로 띄우기(스크롤)
+        {
+            StreamReader sr = new StreamReader(new FileStream("scrap.txt", FileMode.Open)); //scrap.txt 파일에 내용추가하는 함수 만들기
+            string temp = sr.ReadToEnd();
+            stringIndex = temp.Split('\n').Length - 1;
+
+            ScrapString = new string[scarpIndex];
+            ScrapString = temp.Split('\n');
+
+            //따로 창 띄우기
+
+            sr.Close();
+        }
+
+
+        private void Serach_Click(object sender, RoutedEventArgs e) //검색 -> 파일 내에서 검색? 웹 사이트에서 바로 검색?
+        {
+
         }
     }
 }

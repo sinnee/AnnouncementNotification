@@ -1,4 +1,4 @@
-﻿<Window x:Class="pjPractice.MainWindow"
+<Window x:Class="pjPractice.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -19,6 +19,11 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
             <Button Click="SearchWeb" x:Name="NewSetting" Content="새로고침" Height="30"/>
+            <Button Click="Serach_Click" x:Name="Serach" Content="Serach" Width="50" Height="30"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <Button Click="Scarp_Click" x:Name="Scarp" Content="스크랩" Height="30" Margin="3"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1">

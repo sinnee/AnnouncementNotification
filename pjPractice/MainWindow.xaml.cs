@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using System.Text.RegularExpressions;
 
 namespace pjPractice
 {
@@ -38,7 +39,7 @@ namespace pjPractice
 
         int stringIndex = 1, scarpIndex = 1; //가장 마지막 == 제일 처음 공지사항을 가리킴
 
-        int pageNumber = 1; //페이지 수 이동 체크
+        int lastnoticeNumber = 1; //페이지 수 이동 체크
         int tempPage = 0; 
 
         public MainWindow()
@@ -65,7 +66,9 @@ namespace pjPractice
             _opt.AddArgument("disable-gpu");
 
             setStringvalue();
-            setBut(stringIndex - 1);
+            setBut(lastnoticeNumber);
+
+            System.Windows.Application.Current.Exit += WPF_Closing;
         }
 
         private void SearchWeb(object sender, RoutedEventArgs e)
@@ -122,11 +125,12 @@ namespace pjPractice
             sw.Close();
 
             setStringvalue();
-            setBut(stringIndex - 1);
+            setBut(lastnoticeNumber);
         }
 
         private void setBut(int n)
         {
+            int tt = n;
             for(int i = 0; i < 9; i++)
             {
                 if (n < 0 || n > stringIndex - 1) {
@@ -139,6 +143,7 @@ namespace pjPractice
                 n--;
             }
             tempPage = n;
+            testlabel.Content = $"start : {stringIndex.ToString()}, first : {tempPage.ToString()}, last : {tt.ToString()}";
         }
 
         private void setStringvalue()
@@ -150,25 +155,25 @@ namespace pjPractice
             AllString = new string[stringIndex];
             AllString = temp.Split('\n');
 
-            pageNumber = stringIndex;
+            lastnoticeNumber = stringIndex - 1;
             sr.Close();
         }
 
         private void Left_Click(object sender, RoutedEventArgs e)
         {
-            if (pageNumber >= AllString.Length - 1)
+            if (lastnoticeNumber >= AllString.Length - 1)
                 return;
 
-            pageNumber += 9;
-            setBut(pageNumber);
+            lastnoticeNumber += 9;
+            setBut(lastnoticeNumber);
         }
 
         private void Right_Click(object sender, RoutedEventArgs e)
         {
-            if (pageNumber <= 0)
+            if (lastnoticeNumber <= 0)
                 return;
-            pageNumber = tempPage;
-            setBut(pageNumber);
+            lastnoticeNumber = tempPage;
+            setBut(lastnoticeNumber);
         }
 
         private void Scarp_Click(object sender, RoutedEventArgs e) //추가 필요, 스크랩 창 따로 띄우기(스크롤)
@@ -188,6 +193,25 @@ namespace pjPractice
 
         private void Serach_Click(object sender, RoutedEventArgs e) //검색 -> 파일 내에서 검색? 웹 사이트에서 바로 검색?
         {
+
+        }
+
+        private void notice_Click(object sender, RoutedEventArgs e) //공지 사항 창 띄우기
+        {
+            Button but = (Button)sender;
+            string num = but.Tag.ToString();
+            int tempnum = 1;
+            if (int.TryParse(num, out tempnum)) { }
+
+            row = AllString[lastnoticeNumber - tempnum];
+            value = row.Split('\t');
+            //tttt.Content = $"last : {lastnoticeNumber}, {lastnoticeNumber - tempnum}"; //확인용
+            System.Diagnostics.Process.Start($"{value[5]}");
+        }
+
+        public void WPF_Closing(object sender, ExitEventArgs e)
+        { //프로그램 종료시 스크랩 포함한 전체 공지사항 저장, 추후 스크랩 여부때문
+            MessageBox.Show("폼이 닫힙니다.");
 
         }
     }

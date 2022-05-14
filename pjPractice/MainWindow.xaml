@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:pjPractice"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="500">
+        Title="MainWindow" Height="600" Width="800">
     <Grid>
         <Grid.ColumnDefinitions >
             <ColumnDefinition/>
@@ -27,19 +27,21 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <Button x:Name="notice1" Content="" Height="30"/>
-            <Button x:Name="notice2" Content="" Height="30"/>
-            <Button x:Name="notice3" Content="" Height="30"/>
-            <Button x:Name="notice4" Content="" Height="30"/>
-            <Button x:Name="notice5" Content="" Height="30"/>
-            <Button x:Name="notice6" Content="" Height="30"/>
-            <Button x:Name="notice7" Content="" Height="30"/>
-            <Button x:Name="notice8" Content="" Height="30"/>
-            <Button x:Name="notice9" Content="" Height="30"/>
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="leftButton" Width="40" Height="30" Content="left"/>
-                <Button x:Name="rightButton" Width="40" Height="30" Content="right"/>
+            <Button Tag="0" Click="notice_Click" x:Name="notice1" Content="" Height="30"/>
+            <Button Tag="1" Click="notice_Click" x:Name="notice2" Content="" Height="30"/>
+            <Button Tag="2" Click="notice_Click" x:Name="notice3" Content="" Height="30"/>
+            <Button Tag="3" Click="notice_Click" x:Name="notice4" Content="" Height="30"/>
+            <Button Tag="4" Click="notice_Click" x:Name="notice5" Content="" Height="30"/>
+            <Button Tag="5" Click="notice_Click" x:Name="notice6" Content="" Height="30"/>
+            <Button Tag="6" Click="notice_Click" x:Name="notice7" Content="" Height="30"/>
+            <Button Tag="7" Click="notice_Click" x:Name="notice8" Content="" Height="30"/>
+            <Button Tag="8" Click="notice_Click" x:Name="notice9" Content="" Height="30"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="leftButton" Width="40" Height="30" Content="left" Margin="20"/>
+                <Button x:Name="rightButton" Width="40" Height="30" Content="right" Margin="20"/>
             </StackPanel>
+            <Label x:Name="testlabel" Height="30" Width="350" HorizontalAlignment="Left"/>
+            <Label x:Name="tttt" Height="30" Width="350" HorizontalAlignment="Left"/>
         </StackPanel>
         
         
